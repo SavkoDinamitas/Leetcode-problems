@@ -3,6 +3,8 @@
 
 using namespace std;
 
+/*https://leetcode.com/problems/remove-element/?envType=study-plan-v2&envId=top-interview-150*/
+
 int removeElement(vector<int> &nums, int val)
 {
     int pointer = 0;
