@@ -18,6 +18,27 @@ bool canJump(vector<int> &nums)
     return true;
 }
 
+int minJumps(vector<int> nums)
+{
+    int n = nums.size();
+    int currJmp = 0;
+    int maxJmp = 0;
+    int jmp = 0;
+    for (int i = 0; i < n; i++)
+    {
+        if (i > maxJmp)
+        {
+            jmp++;
+            maxJmp = currJmp;
+        }
+        if (i + nums[i] > currJmp)
+        {
+            currJmp = i + nums[i];
+        }
+    }
+    return jmp;
+}
+
 int main()
 {
 }
