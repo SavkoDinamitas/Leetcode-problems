@@ -60,6 +60,62 @@ int lis2(vector<int> &nums)
     return xd.size();
 }
 
+// take two after a year
+
+// dp solution
+int lengthOfLIS(vector<int> &nums)
+{
+    vector<int> dp(nums.size(), 1);
+    dp[0] = 1;
+    int result = 1;
+    for (int i = 1; i < nums.size(); i++)
+    {
+        for (int j = i - 1; j >= 0; j--)
+        {
+            if (nums[i] > nums[j])
+                dp[i] = max(dp[i], dp[j] + 1);
+        }
+        result = max(dp[i], result);
+    }
+    return result;
+}
+
+// nlogn bs solution
+int binarySearch1(vector<int> &nums, int target)
+{
+    int l = 0;
+    int r = nums.size() - 1;
+
+    while (l < r)
+    {
+        int mid = l + (r - l) / 2;
+        if (nums[mid] < target)
+        {
+            l = mid + 1;
+        }
+        else
+        {
+            r = mid;
+        }
+    }
+    return l;
+}
+
+int lengthOfLIS(vector<int> &nums)
+{
+    vector<int> lis;
+    for (int num : nums)
+    {
+        if (lis.empty() || lis.back() < num)
+            lis.push_back(num);
+        else
+        {
+            lis[binarySearch1(lis, num)] = num;
+        }
+    }
+    return lis.size();
+}
+
 int main()
 {
     vector<int> nums = {4, 10, 4, 3, 8, 9};
