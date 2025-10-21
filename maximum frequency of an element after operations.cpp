@@ -3,10 +3,32 @@
 
 using namespace std;
 
+void counting_sort(vector<int> &nums)
+{
+    vector<int> count(100001, 0);
+    for (int num : nums)
+    {
+        count[num]++;
+    }
+    for (int i = 1; i < count.size(); i++)
+    {
+        count[i] += count[i - 1];
+    }
+    vector<int> result(nums.size());
+    for (int num : nums)
+    {
+        result[--count[num]] = num;
+    }
+    for (int i = 0; i < nums.size(); i++)
+    {
+        nums[i] = result[i];
+    }
+}
+
 // my sliding window solution O(nums[n-1] - nums[0])
 int maxFrequencyX(vector<int> &nums, int k, int numOperations)
 {
-    sort(nums.begin(), nums.end());
+    counting_sort(nums);
     unordered_map<int, int> freq;
     for (int num : nums)
     {
